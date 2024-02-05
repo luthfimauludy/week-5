@@ -1,0 +1,46 @@
+@import "@styles/base";
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+.wrapper {
+  @include flexRow;
+  height: 100vh;
+
+  .aside {
+    @include flexRow;
+    @include apply-at-sm-size {
+      @include flex1;
+      display: none;
+    }
+
+    .imgAuth {
+      object-fit: cover;
+    }
+  }
+
+  .containForm {
+    @include flexCol;
+    @include flex1;
+    background-color: $primary-color;
+  }
+
+  .boxForm {
+    @include flexCol;
+    height: 75%;
+    align-items: center;
+    gap: 20px;
+    padding: 10px;
+
+    .headerForm {
+      @include flexRow;
+      width: 100%;
+      justify-content: space-between;
+      color: $text-color;
+      font-weight: bold;
+    }
+  }
+}
