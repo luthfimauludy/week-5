@@ -68,8 +68,9 @@ exports.login = async (dataObject) => {
     }
 
     const token = __generateToken({
+      id: user.id,
+      name: user.name,
       email: user.email,
-      password: user.password,
     });
 
     return Promise.resolve({

@@ -9,9 +9,10 @@ const fileName = "server/api/auth.js";
 
 const register = async (req, res) => {
   try {
+    const { name, email, password } = req.body;
+
     Validation.registerValidation(req.body);
 
-    const { name, email, password } = req.body;
     const response = await AuthHelper.register({ name, email, password });
 
     return res.send(response);
@@ -23,9 +24,10 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   try {
+    const { email, password } = req.body;
+
     Validation.loginValidation(req.body);
 
-    const { email, password } = req.body;
     const response = await AuthHelper.login({ email, password });
 
     return res.send(response);
