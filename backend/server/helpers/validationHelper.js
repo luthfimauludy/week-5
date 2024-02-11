@@ -7,9 +7,8 @@ exports.registerValidation = (data) => {
     email: Joi.string().required().description("Email cannot be empty"),
     password: Joi.string()
       .min(8)
-      .max(20)
       .required()
-      .description("Should be between 8-20 characters"),
+      .description("Password length must be at least 8 characters"),
   });
 
   if (schema.validate(data).error) {
@@ -22,9 +21,8 @@ exports.loginValidation = (data) => {
     email: Joi.string().required().description("Email cannot be empty"),
     password: Joi.string()
       .min(8)
-      .max(20)
       .required()
-      .description("Should be between 8-20 characters"),
+      .description("Password length must be at least 8 characters"),
   });
 
   if (schema.validate(data).error) {
@@ -48,9 +46,8 @@ exports.resetValidation = (data) => {
     email: Joi.string().required().description("Email cannot be empty"),
     password: Joi.string()
       .min(8)
-      .max(20)
       .required()
-      .description("Should be between 8-20 characters"),
+      .description("Password length must be at least 8 characters"),
   });
 
   if (schema.validate(data).error) {
