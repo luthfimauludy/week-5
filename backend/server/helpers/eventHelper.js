@@ -22,14 +22,23 @@ exports.getAllEvent = async (dataObject) => {
   }
 };
 
-exports.getOneEvent = async () => {
+exports.getOneEvent = async (id) => {
   try {
-    const oneEvent = await db.Events.findOne({
-      attributes: ["id", "title", "descriptions"],
-      include: "cities",
+    const event = await db.Events.findByPk(id, {
+      attributes: { exclude: ["createdAt", "updatedAt", "cityId"] },
+      include: [
+        {
+          model: db.Cities,
+          as: "cities",
+          attributes: ["name"],
+        },
+      ],
     });
+    if (_.isEmpty(event)) {
+      return Promise.reject(Boom.notFound("EVENT_NOT_FOUND"));
+    }
 
-    return Promise.resolve(oneEvent);
+    return Promise.resolve(event);
   } catch (err) {
     console.log([fileName, "getOneEvent", "ERROR"], { info: `${err}` });
     return Promise.reject(GeneralHelper.errorResponse(err));
@@ -47,56 +56,55 @@ exports.insert = async (dataObject) => {
       return Promise.reject(Boom.badRequest("TITLE_HAS_BEEN_USED"));
     }
 
-    const events = await db.Events.create({ title, descriptions, cityId });
-    return Promise.resolve(events);
+    const data = await db.Events.create({ title, descriptions, cityId });
+    return Promise.resolve(data);
   } catch (err) {
     console.log([fileName, "insert", "ERROR"], { info: `${err}` });
     return Promise.reject(GeneralHelper.errorResponse(err));
   }
 };
 
-exports.update = async (dataObject) => {
-  const { title, descriptions, cityId } = dataObject;
-  let response = {};
-
+exports.update = async (id, dataObject) => {
   try {
-    const events = await db.Events.update({
-      title,
-      descriptions,
-      cityId,
+    const { title, descriptions, cityId } = dataObject;
+
+    const event = await db.Events.findOne({
+      where: { id },
     });
-    if (!events) {
-      response = {
-        success: false,
-        message: "Update event unsuccessfully",
-      };
+    if (_.isEmpty(event)) {
+      return Promise.reject(Boom.notFound("EVENT_NOT_FOUND"));
     }
 
-    return Promise.resolve(events);
+    const data = await db.Events.update(
+      {
+        title,
+        descriptions,
+        cityId,
+      },
+      { where: { id } }
+    );
+
+    return Promise.resolve(data);
   } catch (err) {
     console.log([fileName, "update", "ERROR"], { info: `${err}` });
     return Promise.reject(GeneralHelper.errorResponse(err));
   }
 };
 
-exports.delete = async (dataObject) => {
-  const { title, descriptions, cityId } = dataObject;
-  let response = {};
-
+exports.delete = async (id) => {
   try {
-    const events = await db.Events.destroy({
-      title,
-      descriptions,
-      cityId,
+    const event = await db.Events.findOne({
+      where: { id },
     });
-    if (!events) {
-      response = {
-        success: false,
-        message: "Delete event unsuccessfully",
-      };
+    if (_.isEmpty(event)) {
+      return Promise.reject(Boom.notFound("EVENT_NOT_FOUND"));
     }
 
-    return Promise.resolve(events);
+    const data = await db.Events.destroy({
+      where: { id },
+    });
+
+    return Promise.resolve(data);
   } catch (err) {
     console.log([fileName, "update", "ERROR"], { info: `${err}` });
     return Promise.reject(GeneralHelper.errorResponse(err));

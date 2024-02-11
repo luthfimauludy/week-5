@@ -8,12 +8,12 @@ const fileName = "server/api/event.js";
 const eventList = async (req, res) => {
   try {
     const { limit, offset } = req.query;
-    const response = await EventHelper.getAllEvent({ limit, offset });
+    const result = await EventHelper.getAllEvent({ limit, offset });
 
     return res.json({
       success: true,
       message: "List of all events",
-      results: response,
+      results: result,
     });
   } catch (err) {
     console.log([fileName, "eventList", "ERROR"], { info: `${err}` });
@@ -24,16 +24,13 @@ const eventList = async (req, res) => {
 const eventById = async (req, res) => {
   try {
     const { id } = req.params;
-    const response = await EventHelper.getOneEvent(id);
 
-    if (!response.ok) {
-      return res.status(404).json(response);
-    }
+    const result = await EventHelper.getOneEvent(id);
 
     return res.json({
       success: true,
       message: "List of event",
-      results: response,
+      results: result,
     });
   } catch (err) {
     console.log([fileName, "eventById", "ERROR"], { info: `${err}` });
@@ -44,12 +41,13 @@ const eventById = async (req, res) => {
 const createEvent = async (req, res) => {
   try {
     const { title, descriptions, cityId } = req.body;
-    const response = await EventHelper.insert({ title, descriptions, cityId });
+
+    const result = await EventHelper.insert({ title, descriptions, cityId });
 
     return res.json({
       success: true,
       message: `Create event ${req.body.title} successfully`,
-      results: response,
+      results: result,
     });
   } catch (err) {
     console.log([fileName, "createEvent", "ERROR"], { info: `${err}` });
@@ -59,14 +57,14 @@ const createEvent = async (req, res) => {
 
 const updateEvent = async (req, res) => {
   try {
-    const data = { ...req.body };
+    const data = req.body;
     const { id } = req.params;
-    const response = await EventHelper.update(id, data);
+
+    await EventHelper.update(id, data);
 
     return res.json({
       success: true,
       message: "Update event successfully",
-      results: response,
     });
   } catch (err) {
     console.log([fileName, "updateEvent", "ERROR"], { info: `${err}` });
@@ -76,14 +74,13 @@ const updateEvent = async (req, res) => {
 
 const deleteEvent = async (req, res) => {
   try {
-    const data = { ...req.body };
     const { id } = req.params;
-    const response = await EventHelper.delete(id, data);
+
+    await EventHelper.delete(id);
 
     return res.json({
       success: true,
       message: "Delete event successfully",
-      results: response,
     });
   } catch (err) {
     console.log([fileName, "deleteEvent", "ERROR"], { info: `${err}` });
