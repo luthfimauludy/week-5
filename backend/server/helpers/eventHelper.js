@@ -46,7 +46,7 @@ exports.getOneEvent = async (id) => {
 };
 
 exports.insert = async (dataObject) => {
-  const { title, descriptions, cityId } = dataObject;
+  const { title, descriptions, cityId, picture, date } = dataObject;
 
   try {
     const event = await db.Events.findOne({
@@ -56,7 +56,13 @@ exports.insert = async (dataObject) => {
       return Promise.reject(Boom.badRequest("TITLE_HAS_BEEN_USED"));
     }
 
-    const data = await db.Events.create({ title, descriptions, cityId });
+    const data = await db.Events.create({
+      title,
+      descriptions,
+      cityId,
+      picture,
+      date,
+    });
     return Promise.resolve(data);
   } catch (err) {
     console.log([fileName, "insert", "ERROR"], { info: `${err}` });
@@ -66,7 +72,7 @@ exports.insert = async (dataObject) => {
 
 exports.update = async (id, dataObject) => {
   try {
-    const { title, descriptions, cityId } = dataObject;
+    const { title, descriptions, cityId, picture, date } = dataObject;
 
     const event = await db.Events.findOne({
       where: { id },
@@ -80,6 +86,8 @@ exports.update = async (id, dataObject) => {
         title,
         descriptions,
         cityId,
+        picture,
+        date,
       },
       { where: { id } }
     );

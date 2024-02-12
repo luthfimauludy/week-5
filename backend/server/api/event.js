@@ -40,9 +40,9 @@ const eventById = async (req, res) => {
 
 const createEvent = async (req, res) => {
   try {
-    const { title, descriptions, cityId } = req.body;
+    const data = req.body;
 
-    const result = await EventHelper.insert({ title, descriptions, cityId });
+    const result = await EventHelper.insert(data);
 
     return res.json({
       success: true,
