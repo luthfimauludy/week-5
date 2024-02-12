@@ -11,4 +11,6 @@ export default {
   app_register_text: 'Already have an account?',
   app_login_title: 'Login',
   app_login_text: 'Don&lsquo;t have an account?',
+  app_home_button_search: 'Search',
+  app_home_header_title: 'Event For You',
 };

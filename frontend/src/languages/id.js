@@ -11,4 +11,6 @@ export default {
   app_register_text: 'Sudah mempunyai akun?',
   app_login_title: 'Masuk',
   app_login_text: 'Belum mempunyai akun?',
+  app_home_button_search: 'Cari',
+  app_home_header_title: 'Acara Untukmu',
 };
