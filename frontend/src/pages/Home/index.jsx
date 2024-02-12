@@ -2,24 +2,23 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { FormattedMessage } from 'react-intl';
 import { getEvent } from './actions';
 import { selectEvent } from './selectors';
-// import { FormattedMessage } from 'react-intl';
 
 import imgEvents from '../../static/images/img-grid.png';
 
 import classes from './style.module.scss';
 
-const Home = ({ events }) => {
+const Home = ({ dataEvent }) => {
   const dispatch = useDispatch();
-  const [data, setData] = useState(events);
+  const [data, setData] = useState(dataEvent);
 
   useEffect(() => {
     dispatch(
       getEvent(
         (res) => {
           setData(res);
-          console.log(res);
         },
         (error) => {
           console.log(error);
@@ -29,19 +28,23 @@ const Home = ({ events }) => {
   }, [dispatch]);
 
   useEffect(() => {
-    setData(events);
-  }, [events]);
+    setData(dataEvent);
+  }, [dataEvent]);
 
   return (
     <div className={classes.wrapper}>
       <section className={classes.header}>
         <div className={classes.boxSearch}>
           <input type="text" placeholder="Search event" />
-          <button type="button">Search</button>
+          <button type="button">
+            <FormattedMessage id="app_home_button_search" />
+          </button>
         </div>
       </section>
       <section className={classes.mainContent}>
-        <h1>Events For You</h1>
+        <h1>
+          <FormattedMessage id="app_home_header_title" />
+        </h1>
         <div className={classes.container}>
           {data?.map((item, index) => (
             <div key={index} className={classes.boxEvent}>
@@ -52,98 +55,15 @@ const Home = ({ events }) => {
               </div>
               <div className={classes.boxTitle}>
                 <div className={classes.title}>
-                  <h3>{item?.title}</h3>
-                  <p>{item?.cityId}</p>
+                  <h3>{item.title}</h3>
+                  <p>
+                    {item.cities.location}, {item.date}
+                  </p>
                 </div>
-                <p className={classes.subTitle}>{item?.descriptions}</p>
+                <p className={classes.subTitle}>{item.descriptions}</p>
               </div>
             </div>
           ))}
-          {/* <div className={classes.boxEvent}>
-            <div className={classes.cardEvent}>
-              <div>
-                <img src={imgEvents} alt="Event Pictures" />
-              </div>
-            </div>
-            <div className={classes.boxTitle}>
-              <div className={classes.title}>
-                <h3>Tomorrowland</h3>
-                <p>Jakarta, 20 July 2024</p>
-              </div>
-              <p className={classes.subTitle}>
-                Liburan di tahun baru 2020 keberangkatan saya menuju Pulau Dewata Bali. Sampai lah saya malam itu di
-                Bali Airport menujukan waktu jam 02.00, dan melanjutkan pejalanan yang menyenangkan..
-              </p>
-            </div>
-          </div>
-          <div className={classes.boxEvent}>
-            <div className={classes.cardEvent}>
-              <div>
-                <img src={imgEvents} alt="Event Pictures" />
-              </div>
-            </div>
-            <div className={classes.boxTitle}>
-              <div className={classes.title}>
-                <h3>Tomorrowland</h3>
-                <p>Jakarta, 20 July 2024</p>
-              </div>
-              <p className={classes.subTitle}>
-                Liburan di tahun baru 2020 keberangkatan saya menuju Pulau Dewata Bali. Sampai lah saya malam itu di
-                Bali Airport menujukan waktu jam 02.00, dan melanjutkan pejalanan yang menyenangkan..
-              </p>
-            </div>
-          </div>
-          <div className={classes.boxEvent}>
-            <div className={classes.cardEvent}>
-              <div>
-                <img src={imgEvents} alt="Event Pictures" />
-              </div>
-            </div>
-            <div className={classes.boxTitle}>
-              <div className={classes.title}>
-                <h3>Tomorrowland</h3>
-                <p>Jakarta, 20 July 2024</p>
-              </div>
-              <p className={classes.subTitle}>
-                Liburan di tahun baru 2020 keberangkatan saya menuju Pulau Dewata Bali. Sampai lah saya malam itu di
-                Bali Airport menujukan waktu jam 02.00, dan melanjutkan pejalanan yang menyenangkan..
-              </p>
-            </div>
-          </div>
-          <div className={classes.boxEvent}>
-            <div className={classes.cardEvent}>
-              <div>
-                <img src={imgEvents} alt="Event Pictures" />
-              </div>
-            </div>
-            <div className={classes.boxTitle}>
-              <div className={classes.title}>
-                <h3>Tomorrowland</h3>
-                <p>Jakarta, 20 July 2024</p>
-              </div>
-              <p className={classes.subTitle}>
-                Liburan di tahun baru 2020 keberangkatan saya menuju Pulau Dewata Bali. Sampai lah saya malam itu di
-                Bali Airport menujukan waktu jam 02.00, dan melanjutkan pejalanan yang menyenangkan..
-              </p>
-            </div>
-          </div>
-          <div className={classes.boxEvent}>
-            <div className={classes.cardEvent}>
-              <div>
-                <img src={imgEvents} alt="Event Pictures" />
-              </div>
-            </div>
-            <div className={classes.boxTitle}>
-              <div className={classes.title}>
-                <h3>Tomorrowland</h3>
-                <p>Jakarta, 20 July 2024</p>
-              </div>
-              <p className={classes.subTitle}>
-                Liburan di tahun baru 2020 keberangkatan saya menuju Pulau Dewata Bali. Sampai lah saya malam itu di
-                Bali Airport menujukan waktu jam 02.00, dan melanjutkan pejalanan yang menyenangkan..
-              </p>
-            </div>
-          </div> */}
         </div>
       </section>
     </div>
@@ -151,11 +71,11 @@ const Home = ({ events }) => {
 };
 
 Home.propTypes = {
-  events: PropTypes.array,
+  dataEvent: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
-  events: selectEvent,
+  dataEvent: selectEvent,
 });
 
 export default connect(mapStateToProps)(Home);

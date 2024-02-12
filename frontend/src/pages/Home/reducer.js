@@ -3,16 +3,18 @@ import { produce } from 'immer';
 import { SET_EVENT } from './constants';
 
 export const initialState = {
-  events: [],
+  dataEvent: [],
 };
 
-export const storedKey = ['events'];
+export const storedKey = ['dataEvent'];
 
 const homeReducer = (state = initialState, action) =>
   produce(state, (draft) => {
     switch (action.type) {
       case SET_EVENT:
-        draft.events = action.events;
+        draft.dataEvent = action.dataEvent;
+        break;
+      default:
         break;
     }
   });

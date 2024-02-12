@@ -4,13 +4,14 @@ import { getEvent } from '@domain/api';
 import { setEvent } from './actions';
 import { GET_EVENT } from './constants';
 
-function* doGetEvent(cbSuccess, cbFailed) {
+function* doGetEvent({ cbFailed, cbSuccess }) {
   yield put(setLoading(true));
   try {
-    const { res } = yield call(getEvent);
-    yield put(setEvent(res));
-    cbSuccess && cbSuccess(res);
+    const res = yield call(getEvent);
+    cbSuccess && cbSuccess(res.results);
+    yield put(setEvent(res.results));
   } catch (error) {
+    console.log(error);
     cbFailed && cbFailed();
   }
   yield put(setLoading(false));

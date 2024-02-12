@@ -6,7 +6,7 @@ export const getEvent = (cbSuccess, cbFailed) => ({
   cbFailed,
 });
 
-export const setEvent = (events) => ({
+export const setEvent = (dataEvent) => ({
   type: SET_EVENT,
-  events,
+  dataEvent,
 });
