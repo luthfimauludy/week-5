@@ -1,0 +1,75 @@
+@import '@styles/base';
+
+.wrapper {
+  @include directionY;
+  gap: 10px;
+  padding: 20px 50px;
+
+  .container {
+    @include directionY;
+    align-items: center;
+    padding: 30px 0;
+
+    .boxImage {
+      border-radius: 100%;
+      padding: 10px;
+      img {
+        width: 137px;
+        height: 137px;
+        object-fit: cover;
+        border-radius: 100%;
+        border-width: 8px;
+        border-color: $secondary-color;
+      }
+    }
+
+    .boxChoosePhoto {
+      @include directionY;
+      align-items: center;
+      span {
+        cursor: pointer;
+      }
+
+      input {
+        max-width: 200px;
+        display: none;
+      }
+    }
+  }
+
+  .boxInput {
+    @include directionY;
+    align-items: center;
+    gap: 10px;
+    .formInput {
+      @include directionX;
+      align-items: center;
+      gap: 10px;
+      label {
+        min-width: 70px;
+        font-size: 18px;
+      }
+
+      input {
+        min-width: 250px;
+        border: 1px solid gray;
+        border-radius: 5px;
+        outline: none;
+        padding: 10px;
+      }
+    }
+  }
+
+  .btnSave {
+    @include directionX;
+    justify-content: center;
+    margin-top: 50px;
+    button {
+      cursor: pointer;
+      border-radius: 5px;
+      border: none;
+      background-color: $primary-color;
+      padding: 10px;
+    }
+  }
+}
