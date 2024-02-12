@@ -1,46 +1,104 @@
-@import "@styles/base";
+@import '@styles/base';
 
 * {
   margin: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 .wrapper {
-  @include flexRow;
+  @include directionX;
   height: 100vh;
 
   .aside {
-    @include flexRow;
+    @include directionX;
     @include apply-at-sm-size {
       @include flex1;
       display: none;
     }
 
     .imgAuth {
-      object-fit: cover;
+      object-fit: contain;
     }
   }
 
   .containForm {
-    @include flexCol;
+    @include directionY;
     @include flex1;
-    background-color: $primary-color;
+    background-color: $color-white;
   }
 
   .boxForm {
-    @include flexCol;
-    height: 75%;
+    @include directionY;
     align-items: center;
     gap: 20px;
-    padding: 10px;
+    padding: 10px 30px;
 
     .headerForm {
-      @include flexRow;
+      @include directionX;
       width: 100%;
-      justify-content: space-between;
-      color: $text-color;
+      justify-content: end;
+      color: $color-dark-blue;
       font-weight: bold;
+    }
+
+    form {
+      @include directionY;
+      padding-top: 20px;
+      gap: 20px;
+      width: 100%;
+
+      .formInput {
+        @include directionY;
+        gap: 2px;
+
+        label {
+          font-weight: bold;
+        }
+
+        input {
+          padding: 10px;
+          border-radius: 10px;
+          border: 1px solid $primary-color;
+          outline: none;
+        }
+      }
+
+      .btnRegister {
+        padding-top: 20px;
+
+        button {
+          width: 100%;
+          padding: 10px;
+          font-weight: bold;
+          font-size: 18px;
+          border-radius: 10px;
+          border: none;
+          background-color: $primary-color;
+          color: $text-color;
+          cursor: pointer;
+        }
+      }
+
+      .text14 {
+        font-size: 14px;
+        text-align: center;
+        padding-top: 20px;
+      }
+
+      .btnLogin {
+        button {
+          width: 100%;
+          padding: 10px;
+          font-weight: bold;
+          font-size: 18px;
+          border-radius: 10px;
+          border: none;
+          background-color: $primary-color;
+          color: $text-color;
+          cursor: pointer;
+        }
+      }
     }
   }
 }
