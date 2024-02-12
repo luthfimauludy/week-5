@@ -7,18 +7,18 @@ import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import LightModeIcon from '@mui/icons-material/LightMode';
-import NightsStayIcon from '@mui/icons-material/NightsStay';
 
-import { setLocale, setTheme } from '@containers/App/actions';
+import { setLocale } from '@containers/App/actions';
 
 import classes from './style.module.scss';
 
-const Navbar = ({ title, locale, theme }) => {
+const Navbar = ({ title, locale }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [menuPosition, setMenuPosition] = useState(null);
+  const [menu, setMenu] = useState(null);
   const open = Boolean(menuPosition);
+  const openMenu = Boolean(menu);
 
   const handleClick = (event) => {
     setMenuPosition(event.currentTarget);
@@ -28,8 +28,12 @@ const Navbar = ({ title, locale, theme }) => {
     setMenuPosition(null);
   };
 
-  const handleTheme = () => {
-    dispatch(setTheme(theme === 'light' ? 'dark' : 'light'));
+  const handleClickMenu = (event) => {
+    setMenu(event.currentTarget);
+  };
+
+  const handleCloseMenu = () => {
+    setMenu(null);
   };
 
   const onSelectLang = (lang) => {
@@ -43,6 +47,19 @@ const Navbar = ({ title, locale, theme }) => {
     navigate('/');
   };
 
+  const goProfile = () => {
+    navigate('/profile');
+  };
+
+  const goCreateEvent = () => {
+    navigate('/create-event');
+  };
+
+  const doLogout = () => {
+    window.localStorage.removeItem('token');
+    navigate('/login');
+  };
+
   return (
     <div className={classes.headerWrapper} data-testid="navbar">
       <div className={classes.contentWrapper}>
@@ -51,13 +68,16 @@ const Navbar = ({ title, locale, theme }) => {
           <div className={classes.title}>{title}</div>
         </div>
         <div className={classes.toolbar}>
-          <div className={classes.theme} onClick={handleTheme} data-testid="toggleTheme">
+          {/* <div className={classes.theme} onClick={handleTheme} data-testid="toggleTheme">
             {theme === 'light' ? <NightsStayIcon /> : <LightModeIcon />}
-          </div>
+          </div> */}
           <div className={classes.toggle} onClick={handleClick}>
             <Avatar className={classes.avatar} src={locale === 'id' ? '/id.png' : '/en.png'} />
             <div className={classes.lang}>{locale}</div>
             <ExpandMoreIcon />
+          </div>
+          <div className={classes.toggle} onClick={handleClickMenu}>
+            Profile Name
           </div>
         </div>
         <Menu open={open} anchorEl={menuPosition} onClose={handleClose}>
@@ -78,6 +98,17 @@ const Navbar = ({ title, locale, theme }) => {
             </div>
           </MenuItem>
         </Menu>
+        <Menu open={openMenu} anchorEl={menu} onClose={handleCloseMenu}>
+          <MenuItem onClick={goProfile}>
+            <div className={classes.menuProfile}>Edit Profile</div>
+          </MenuItem>
+          <MenuItem onClick={goCreateEvent}>
+            <div className={classes.menuProfile}>Create Event</div>
+          </MenuItem>
+          <MenuItem onClick={doLogout}>
+            <div className={classes.menuLogout}>Logout</div>
+          </MenuItem>
+        </Menu>
       </div>
     </div>
   );
@@ -86,7 +117,6 @@ const Navbar = ({ title, locale, theme }) => {
 Navbar.propTypes = {
   title: PropTypes.string,
   locale: PropTypes.string.isRequired,
-  theme: PropTypes.string,
 };
 
 export default Navbar;
