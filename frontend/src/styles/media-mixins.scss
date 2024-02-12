@@ -9,7 +9,7 @@ $screen-xxl-limit: 1400px;
 $screen-1024-limit: 1024px;
 
 @mixin apply-at-xs-size {
-  @media (min-width: $screen-xs-limit) {
+  @media (max-width: $screen-xs-limit) {
     @content;
   }
 }

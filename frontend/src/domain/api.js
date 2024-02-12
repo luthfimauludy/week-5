@@ -4,7 +4,10 @@ import { merge } from 'lodash';
 import request from '@utils/request';
 
 const urls = {
-  ping: 'ping.json',
+  // ping: 'ping.json',
+  register: 'register',
+  login: 'login',
+  getEvent: 'event',
 };
 
 export const callAPI = async (endpoint, method, header = {}, params = {}, data = {}) => {
@@ -28,3 +31,9 @@ export const callAPI = async (endpoint, method, header = {}, params = {}, data =
 };
 
 export const ping = () => callAPI(urls.ping, 'get');
+
+// Auth
+export const register = (dataUser) => callAPI(urls.register, 'POST', {}, {}, dataUser);
+export const login = (dataUser) => callAPI(urls.login, 'POST', {}, {}, dataUser);
+
+export const getEvent = () => callAPI(urls.getEvent, 'GET');
