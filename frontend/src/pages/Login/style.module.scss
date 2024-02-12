@@ -1,0 +1,112 @@
+@import '@styles/base';
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+.wrapper {
+  @include directionX;
+  height: 100vh;
+
+  .aside {
+    @include directionX;
+    @include apply-at-sm-size {
+      @include flex1;
+      display: none;
+    }
+
+    .imgAuth {
+      object-fit: contain;
+    }
+  }
+
+  .containForm {
+    @include directionY;
+    @include flex1;
+    background-color: $color-white;
+  }
+
+  .boxForm {
+    @include directionY;
+    align-items: center;
+    gap: 20px;
+    padding: 10px 30px;
+
+    .headerForm {
+      @include directionX;
+      width: 100%;
+      justify-content: end;
+      color: $color-dark-blue;
+      font-weight: bold;
+    }
+
+    form {
+      @include directionY;
+      padding-top: 40px;
+      gap: 20px;
+      width: 100%;
+
+      .formInput {
+        @include directionY;
+
+        label {
+          font-weight: bold;
+        }
+
+        input {
+          padding: 10px;
+          border-radius: 10px;
+          border: 1px solid $primary-color;
+          outline: none;
+        }
+
+        .textError {
+          @include directionX;
+          justify-content: right;
+          font-size: 12px;
+          color: red;
+        }
+      }
+
+      .btnLogin {
+        padding-top: 20px;
+
+        button {
+          width: 100%;
+          padding: 10px;
+          font-weight: bold;
+          font-size: 18px;
+          border-radius: 10px;
+          border: none;
+          background-color: $primary-color;
+          color: $text-color;
+          cursor: pointer;
+        }
+      }
+
+      .text14 {
+        font-size: 14px;
+        text-align: center;
+        padding-top: 20px;
+      }
+
+      .btnRegister {
+        padding-top: 10px;
+
+        button {
+          width: 100%;
+          padding: 10px;
+          font-weight: bold;
+          font-size: 18px;
+          border-radius: 10px;
+          border: none;
+          background-color: $primary-color;
+          color: $text-color;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
