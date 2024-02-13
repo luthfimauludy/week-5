@@ -43,7 +43,7 @@ const CreateEvent = () => {
             <div className={classes.formInput}>
               <label>Category</label>
               <select name="categoryId">
-                <option>Select Category</option>
+                <option hidden>Select Category</option>
               </select>
             </div>
             <div className={classes.formInput}>

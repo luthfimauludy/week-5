@@ -7,6 +7,7 @@ import languageReducer from '@containers/Language/reducer';
 import registerReducer, { storedKey as storedRegisterState } from '@pages/Register/reducer';
 import loginReducer, { storedKey as storedLoginState } from '@pages/Login/reducer';
 import homeReducer, { storedKey as storedHomeState } from '@pages/Home/reducer';
+import createEventReducer, { storedKey as storedCreateEventState } from '@pages/CreateEvent/reducer';
 
 import { mapWithPersistor } from './persistence';
 
@@ -16,6 +17,7 @@ const storedReducers = {
   register: { reducer: registerReducer, whitelist: storedRegisterState },
   login: { reducer: loginReducer, whitelist: storedLoginState },
   home: { reducer: homeReducer, whitelist: storedHomeState },
+  createEvent: { reducer: createEventReducer, whitelist: storedCreateEventState },
 };
 
 const temporaryReducers = {

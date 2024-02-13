@@ -8,6 +8,7 @@ const urls = {
   register: 'register',
   login: 'login',
   getEvent: 'event',
+  createEvent: 'event',
 };
 
 export const callAPI = async (endpoint, method, header = {}, params = {}, data = {}) => {
@@ -37,3 +38,5 @@ export const register = (dataUser) => callAPI(urls.register, 'POST', {}, {}, dat
 export const login = (dataUser) => callAPI(urls.login, 'POST', {}, {}, dataUser);
 
 export const getEvent = () => callAPI(urls.getEvent, 'GET');
+export const createEvent = (dataEvent) =>
+  callAPI(urls.createEvent, 'POST', { 'Content-Type': 'multipart/form-data' }, {}, dataEvent);
