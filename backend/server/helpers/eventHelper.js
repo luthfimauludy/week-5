@@ -13,6 +13,14 @@ exports.getAllEvent = async (dataObject) => {
     const events = await db.Events.findAll({
       limit,
       offset,
+      attributes: { exclude: ["createdAt", "updatedAt", "cityId"] },
+      include: [
+        {
+          model: db.Cities,
+          as: "cities",
+          attributes: ["id", ["name", "location"]],
+        },
+      ],
     });
 
     return Promise.resolve(events);
@@ -30,7 +38,7 @@ exports.getOneEvent = async (id) => {
         {
           model: db.Cities,
           as: "cities",
-          attributes: ["name"],
+          attributes: ["id", ["name", "location"]],
         },
       ],
     });
